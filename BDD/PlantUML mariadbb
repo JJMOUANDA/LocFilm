@@ -1,0 +1,71 @@
+@startuml
+
+title Schéma BDD location des films
+
+entity "Film" {
+  +id: int
+  --
+  name: varchar
+  releaseDate: date
+  description: text
+  youtubeLink: varchar
+  price : int
+}
+
+entity "Photo" {
+  +id: int
+  --
+  filmId: int
+  imageData: text
+}
+
+entity "User" {
+  +id: int
+  --
+  username: varchar
+  passwordHash: varchar
+  email: varchar
+  imageData : text
+}
+
+entity "Rent" {
+  +id: int
+  --
+  userId: int
+  filmId: int
+  rentalDate: datetime
+  returnDate: datetime
+}
+
+entity "Cart" {
+  +id: int
+  --
+  userId: int
+}
+
+entity "CartItem" {
+  +id: int
+  --
+  cartId: int
+  filmId: int
+  quantity: int
+}
+
+entity "Comment"{
+  +id:int
+  --
+  userId : int
+  filmId : int
+  text : text
+}
+
+Film ||--o{ Rent : "is rented in"
+Film ||--o{ Photo : "has many"
+User ||--o{ Rent : "makes many"
+User ||--o{ Cart : "has"
+Cart ||--o{ CartItem : "contains"
+Film ||--o{ CartItem : "included in"
+Film ||--o{ Comment : "has many"
+User ||--o{ Comment : "makes many"
+
+@enduml

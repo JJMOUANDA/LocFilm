@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  mariadb:
+    container_name: mariadb_locfilm
+    image: mariadb:10.5.23-focal
+    env_file:
+      - .env.test
+    environment:
+      TZ: UTC
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb/backup:/backup
+
+  mongodb:
+    container_name: mongodb_locfilm
+    image: mongo:7.0.5
+    environment:
+      TZ: UTC
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb/backup:/backup
+      - ./mongodb/data:/data/db
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1-apache
+    container_name: phpmyadmin_locfilm
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    ports:
+      - "8091:80"
+    env_file:
+      - .env.test
+
+volumes:
+  mariadb_data:
+    driver: local
+  mongodb-data:
+    driver: local
+  mongodb-log:
+    driver: local
