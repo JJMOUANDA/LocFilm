@@ -10,12 +10,14 @@ entity "Film" {
   description: text
   youtubeLink: varchar
   price : int
+  state : varchar
 }
 
 entity "Photo" {
   +id: int
   --
   filmId: int
+  commentId : int
   imageData: text
 }
 
@@ -23,9 +25,11 @@ entity "User" {
   +id: int
   --
   username: varchar
+  role : varchar
   passwordHash: varchar
   email: varchar
   imageData : text
+  state : varchar
 }
 
 entity "Rent" {
@@ -48,7 +52,6 @@ entity "CartItem" {
   --
   cartId: int
   filmId: int
-  quantity: int
 }
 
 entity "Comment"{
