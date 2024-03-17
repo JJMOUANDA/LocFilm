@@ -218,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `role` varchar(1) NOT NULL,
   `passwordHash` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `imageData` text NOT NULL,
+  `imageData` text,
   `state` varchar(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

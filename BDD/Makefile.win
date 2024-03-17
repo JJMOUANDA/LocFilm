@@ -30,35 +30,35 @@ remove_all: remove_mariadb remove_mongodb remove_phpmyadmin
 
 # Créer le service mariadb
 create_mariadb:
-	@docker-compose -p gestion_association up -d mariadb
+	@docker-compose -p location_film up -d mariadb
 
 # Démarrer le service mariadb
 start_mariadb:
-	@docker compose -p gestion_association start mariadb
+	@docker compose -p location_film start mariadb
 
 # Arrêter le service mariadb
 stop_mariadb:
-	@docker compose -p gestion_association stop mariadb
+	@docker compose -p location_film stop mariadb
 
 # Redémarrer le service mariadb
 restart_mariadb: stop_mariadb start_mariadb
 
 # Supprimer le service mariadb
 remove_mariadb:
-	@docker compose -p gestion_association down mariadb --volumes --remove-orphans
+	@docker compose -p location_film down mariadb --volumes --remove-orphans
 
 # Se connecter au shell du service mariadb
 shell_mariadb:
-	@docker exec -it mariadb_gestassoc /bin/bash
+	@docker exec -it mariadb_locfilm /bin/bash
 
 # Créer une backup de la base de données mariadb
 backup_mariadb:
-	@docker exec -it mariadb_gestassoc /bin/bash -c "mysqldump -u root -p$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE) > /backup/backup_$(GIT_USER_NAME)_$$(date +'%Y-%m-%d_%H-%M-%S').sql"
+	@docker exec -it mariadb_locfilm /bin/bash -c "mysqldump -u root -p$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE) > /backup/backup_$(GIT_USER_NAME)_$$(date +'%Y-%m-%d_%H-%M-%S').sql"
 
 # Restaurer une backup de la base de données mariadb (fournir le chemin du fichier)
 # exemple : make restore_mariadb f=mariadb/backup/backup_user_2021-08-25_15-00-00.sql
 restore_mariadb:
-	@docker exec -i mariadb_gestassoc /bin/bash -c "mysql -u root -pdev gestion_association" < $(f)
+	@docker exec -i mariadb_locfilm /bin/bash -c "mysql -u root -pdev location_film" < $(f)
 
 # Restaurer la dernière backup de la base de données mariadb
 restore_latest_mariadb:
@@ -69,36 +69,38 @@ restore_latest_mariadb:
 
 # Créer le service mongodb
 create_mongodb:
-	@docker-compose -p gestion_association up -d mongodb
+	@docker-compose -p location_film up -d mongodb
+	@timeout /t 2 >nul
+	@docker exec mongodb_locfilm mongosh --quiet --host localhost --port 27017 $(MONGO_DATABASE) --eval 'db.createCollection("$(MONGO_COLLECTION)")'
 
 # Démarrer le service mongodb
 start_mongodb:
-	@docker compose -p gestion_association start mongodb
+	@docker compose -p location_film start mongodb
 
 # Arrêter le service mongodb
 stop_mongodb:
-	@docker compose -p gestion_association stop mongodb
+	@docker compose -p location_film stop mongodb
 
 # Redémarrer le service mongodb
 restart_mongodb: stop_mongodb start_mongodb
 
 # Supprimer le service mongodb
 remove_mongodb:
-	@docker compose -p gestion_association down mongodb --volumes --remove-orphans
+	@docker compose -p location_film down mongodb --volumes --remove-orphans
 
 # Se connecter au shell du service mongodb
 shell_mongodb:
-	@docker exec -it mongodb_gestassoc /bin/bash
+	@docker exec -it mongodb_locfilm /bin/bash
 
 # Créer une backup de la collection mongodb
 backup_mongodb:
-	@docker exec mongodb_gestassoc mongoexport --host localhost --port 27017 --db "$(MONGO_DATABASE)" --collection "$(MONGO_COLLECTION)" --out "/backup/backup_$(GIT_USER_NAME)_$(DATE).json" --jsonArray
+	@docker exec mongodb_locfilm mongoexport --host localhost --port 27017 --db "$(MONGO_DATABASE)" --collection "$(MONGO_COLLECTION)" --out "/backup/backup_$(GIT_USER_NAME)_$(DATE).json" --jsonArray
 
 # Restaurer une backup de la collection mongodb (fournir le chemin du fichier)
 # exemple : make restore_mongodb f=mongodb/backup/backup_user_2021-08-25_15-00-00.json
 restore_mongodb:
-	@docker exec mongodb_gestassoc mongosh --quiet --host localhost --port 27017 --eval "db.getSiblingDB('$(MONGO_DATABASE)').dropDatabase()"
-	@docker exec mongodb_gestassoc mongoimport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --type json --file $(f) --jsonArray
+	@docker exec mongodb_locfilm mongosh --quiet --host localhost --port 27017 --eval "db.getSiblingDB('$(MONGO_DATABASE)').dropDatabase()"
+	@docker exec mongodb_locfilm mongoimport --host localhost --port 27017 --db $(MONGO_DATABASE) --collection $(MONGO_COLLECTION) --type json --file $(f) --jsonArray
 
 # Restaurer la dernière backup de la collection mongodb
 restore_latest_mongodb:
@@ -109,19 +111,19 @@ restore_latest_mongodb:
 
 # Créer le service phpmyadmin
 create_phpmyadmin:
-	@docker-compose -p gestion_association up -d phpmyadmin
+	@docker-compose -p location_film up -d phpmyadmin
 
 # Démarrer le service phpmyadmin
 start_phpmyadmin:
-	@docker compose -p gestion_association start phpmyadmin
+	@docker compose -p location_film start phpmyadmin
 
 # Arrêter le service phpmyadmin
 stop_phpmyadmin:
-	@docker compose -p gestion_association stop phpmyadmin
+	@docker compose -p location_film stop phpmyadmin
 
 # Redémarrer le service phpmyadmin
 restart_phpmyadmin: stop_phpmyadmin start_phpmyadmin
 
 # Supprimer le service phpmyadmin
 remove_phpmyadmin:
-	@docker compose -p gestion_association down phpmyadmin --volumes --remove-orphans
+	@docker compose -p location_film down phpmyadmin --volumes --remove-orphans
