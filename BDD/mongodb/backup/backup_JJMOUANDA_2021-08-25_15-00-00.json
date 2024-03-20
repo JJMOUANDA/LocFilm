@@ -1,0 +1,32 @@
+[
+  {
+      "filmId": "1",
+      "userId": "4",
+      "viewDate": "2024-03-10T14:30:00Z"
+    
+  },
+  {
+    "filmId": "2",
+      "userId": "4",
+      "viewDate": "2024-03-11T14:02:00Z"
+  },
+  {
+    "filmId": "3",
+    "userId": "5",
+    "viewDate": "2024-03-15T14:09:00Z"
+  },
+  {
+    "filmId": "2",
+    "userId": "5",
+    "viewDate": "2024-03-18T14:00:50Z"
+  },
+  {
+    "filmId": "3",
+    "userId": "6",
+    "viewDate": "2024-04-11T14:10:00Z"
+  },
+  {
+    "filmId": "3",
+    "viewDate": "2024-03-11T14:29:00Z"
+  }
+]

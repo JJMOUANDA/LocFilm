@@ -1,5 +1,7 @@
 package org.example.filmapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -10,6 +12,7 @@ import jakarta.persistence.Id;
 import java.util.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @lombok.Getter
 @lombok.Setter
 public class Rent {
@@ -23,6 +26,7 @@ public class Rent {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "userId", referencedColumnName = "id")
+  @JsonBackReference
   private User user;
   private Date rentalDate;
 

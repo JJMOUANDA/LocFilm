@@ -20,10 +20,12 @@ public class CartItem {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "cartId", nullable = false)
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @com.fasterxml.jackson.annotation.JsonBackReference
   private Cart cart;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "filmId", nullable = false)
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  @com.fasterxml.jackson.annotation.JsonBackReference
   private Film film;
 }

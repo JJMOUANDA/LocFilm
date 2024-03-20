@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import java.util.*;
 
 @Entity
+@com.fasterxml.jackson.annotation.JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @lombok.Getter
 @lombok.Setter
 public class Cart {
@@ -15,6 +16,7 @@ public class Cart {
   private Long id;
 
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+  @com.fasterxml.jackson.annotation.JsonBackReference
   private List<CartItem> cartItems = new ArrayList<>();
 
   private Long userId;
