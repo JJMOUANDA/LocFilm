@@ -1,34 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
 import AdminHeader from "./AdminHeader";
+import axios from 'axios';
 
-const FilmEdit = ({ films }) => {
-    const { id } = useParams();
-    const [filmDetails, setFilmDetails] = useState(null);
+const FilmEdit = ({ film, updateFilm, setEditing }) => {
+    const [currentFilm, setCurrentFilm] = useState(film);
 
-    useEffect(() => {
-        const film = films.find(film => film.id === parseInt(id));
-        setFilmDetails(film);
-    }, [films, id]);
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setCurrentFilm({ ...currentFilm, [name]: value });
+    };
+
+
+    const saveFilm = () => {
+        updateFilm(currentFilm.id, currentFilm);
+        setEditing(false);
+    };
 
     return (
         <div>
-            <AdminHeader />
+            <AdminHeader/>
             <div className="form-container">
                 <h2>Modifier les détails du film</h2>
-                {filmDetails && (
+                {film && (
                     <form>
                         <label>Nom du film:</label>
-                        <input type="text" value={filmDetails.name} readOnly/>
+                        <input type="text" name="name" value={currentFilm.name} onChange={handleInputChange}/>
                         <label>Date de sortie:</label>
-                        <input type="text" value={filmDetails.releaseDate} readOnly/>
+                        <input type="text" name="releaseDate" value={currentFilm.releaseDate}
+                               onChange={handleInputChange}/>
                         <label>Description:</label>
-                        <input type="text" value={filmDetails.description} readOnly/>
+                        <input type="text" name="description" value={currentFilm.description}
+                               onChange={handleInputChange}/>
                         <label>Prix:</label>
-                        <input type="text" value={filmDetails.price} readOnly/>
+                        <input type="text" name="price" value={currentFilm.price} onChange={handleInputChange}/>
                         <label>Lien YouTube:</label>
-                        <input type="text" value={filmDetails.youtubeLink} readOnly/>
-                        <button type="submit">Enregistrer</button>
+                        <input type="text" name="youtubeLink" value={currentFilm.youtubeLink}
+                               onChange={handleInputChange}/>
+                        <button type="submit" onClick={saveFilm}>Enregistrer</button>
                         <Link to={`/films`}>
                             Annuler
                         </Link>

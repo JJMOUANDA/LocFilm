@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const FilmDetails = ({ films }) => {
+const FilmDetails = () => {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
-        const currentFilm = films.find((film) => film.id === parseInt(id));
-        setFilm(currentFilm);
-        setComments(currentFilm.comments);
-    }, [films, id]);
+        axios.get(`http://localhost:8080/location-film-api/films/${id}`)
+            .then(response => {
+                setFilm(response.data);
+                setComments(response.data.comments);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, [id]);
 
     if (!film) {
         return <div>Film non trouvé</div>;
@@ -30,7 +36,7 @@ const FilmDetails = ({ films }) => {
             </div>
             <h3 className="comments-title">Commentaires:</h3>
             <ul className="comments-list">
-                {comments.map((comment) => (
+                {comments && comments.map((comment) => (
                     <li key={comment.id} className="comment-item">
                         <strong className="comment-author">{comment.userId}</strong> - {comment.text}
                         <br />
