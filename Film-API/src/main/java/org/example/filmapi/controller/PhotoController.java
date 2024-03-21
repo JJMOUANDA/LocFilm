@@ -31,6 +31,12 @@ public class PhotoController {
     return photo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
+  @GetMapping("/film/{userId}")
+  public ResponseEntity<Photo> getPhotoByfilmId(@PathVariable Long id) {
+    Optional<Photo> photo = java.util.Optional.ofNullable(photoRepository.findPhotoByFilmId(id));
+    return photo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
   @PutMapping("/{id}")
   public ResponseEntity<Photo> updatePhoto(@PathVariable Long id, @RequestBody Photo photoDetails) {
     return photoRepository.findById(id)

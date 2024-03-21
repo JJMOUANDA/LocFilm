@@ -17,6 +17,7 @@ import java.beans.PropertyDescriptor;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/location-film-api/users")
 public class UserController {
 
