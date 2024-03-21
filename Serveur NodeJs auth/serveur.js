@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const pool = require('./database');
+const cors = require('cors');
 
 
 const app = express();
@@ -11,6 +12,10 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware pour parser le JSON
 app.use(express.json());
+// Autoriser les requêtes cross-origin de votre application front React
+app.use(cors({
+    origin: 'http://localhost:3000' // Autorise les requêtes cross-origin seulement pour ce domaine
+}));
 
 
 // Routes
@@ -175,6 +180,12 @@ function createPhoto(photo) {
 
 function getPhotoById(id) { 
     return axios.get(`${process.env.baseURL}/photos/${id}`)
+        .then(response => response.data)
+        .catch(err => Promise.reject(err));
+}
+
+function getPhotoByFilmId(filmId) {
+    return axios.get(`${process.env.baseURL}/photos/film/${filmId}`)
         .then(response => response.data)
         .catch(err => Promise.reject(err));
 }
@@ -395,6 +406,14 @@ app.post('/location-film-api/photos', verifyTokenAndRole("U"), (req, res) => {
 
 app.get('/location-film-api/photos/:id', verifyTokenAndRole("U"), (req, res) => {
     getPhotoById(req.params.id).then(photo => {
+        res.json(photo);
+    }).catch(err => {
+        res.status(500).json({ error: err.message });
+    });
+});
+
+app.get('/location-film-api/photos/film/:id', verifyTokenAndRole("U"), (req, res) => {
+    getPhotoByFilmId(req.params.id).then(photo => {
         res.json(photo);
     }).catch(err => {
         res.status(500).json({ error: err.message });
