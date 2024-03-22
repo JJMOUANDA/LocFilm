@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/location-film-api/comments")
 public class CommentController {
 
@@ -34,6 +35,11 @@ public class CommentController {
     } else {
       return ResponseEntity.notFound().build();
     }
+  }
+
+  @GetMapping("/film/{filmId}")
+  public List<Comment> getCommentsByFilmId(@PathVariable Long filmId) {
+    return commentRepository.findCommentsByFilmId(filmId);
   }
 
   @PutMapping("/{id}")

@@ -33,6 +33,22 @@ public class FilmController {
 
   // Ajouter les méthodes PUT
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Film> updateFilm(@PathVariable Long id, @RequestBody Film film) {
+    Optional<Film> existingFilmOptional = filmRepository.findById(id);
+    if (!existingFilmOptional.isPresent()) {
+      return ResponseEntity.notFound().build();
+    }
+    Film existingFilm = existingFilmOptional.get();
+    existingFilm.setName(film.getName());
+    existingFilm.setReleaseDate(film.getReleaseDate());
+    existingFilm.setDescription(film.getDescription());
+    existingFilm.setYoutubeLink(film.getYoutubeLink());
+    existingFilm.setPrice(film.getPrice());
+    existingFilm.setState(film.getState());
+    return ResponseEntity.ok(filmRepository.save(existingFilm));
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<org.example.filmapi.model.User> deleteUser(@PathVariable Long id) {
     filmRepository.deleteById(id);
