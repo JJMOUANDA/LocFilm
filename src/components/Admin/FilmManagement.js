@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import AdminHeader from "./AdminHeader";
 import axios from "axios";
-import filmList from "./FilmList";
+import filmList from "../Utilisateur/FilmList";
 import FilmEdit from "./FilmEdit";
 
 const FilmManagement = ({ setFilms }) => {

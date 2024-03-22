@@ -52,7 +52,7 @@ const FilmDetails = () => {
                     </li>
                 ))}
             </ul>
-            <Link to="/film" className="back-link">Retour à la liste des films</Link>
+            <Link to="/" className="back-link">Retour à la liste des films</Link>
         </div>
     );
 };

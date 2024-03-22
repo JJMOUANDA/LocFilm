@@ -1,9 +1,10 @@
 // Home.js
 import React, {useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../media/background2.jpg'
-import AdminHeader from "./AdminHeader";
-import FilmList from "./FilmList";
+import backgroundImage from '../../media/background2.jpg'
+import AdminHeader from "../Admin/AdminHeader";
+import FilmList from "../Utilisateur/FilmList";
+import FilmHome from "./FilmHome";
 
 const Home = () => {
     const filmListRef = useRef(null);
@@ -35,7 +36,7 @@ const Home = () => {
                 </div>
             </div>
             <div ref={filmListRef}>
-                <FilmList/>
+                <FilmHome/>
             </div>
         </div>
     );

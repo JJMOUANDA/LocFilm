@@ -1,19 +1,20 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/Public/Home";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
-import FilmList from "./components/FilmList";
-import FilmManagement from "./components/FilmManagement";
-import FilmEdit from "./components/FilmEdit";
+import FilmList from "./components/Utilisateur/FilmList";
+import FilmManagement from "./components/Admin/FilmManagement";
+import FilmEdit from "./components/Admin/FilmEdit";
 import {useState} from "react";
-import FilmDetails from "./components/FilmDetails";
-import FilmAdd from "./components/FilmAdd";
-import FilmDetailsAdmin from "./components/FilmDetailsAdmin";
-import HomeConnexion from "./components/HomeConnexion";
+import FilmDetails from "./components/Public/FilmDetails";
+import FilmAdd from "./components/Admin/FilmAdd";
+import FilmDetailsAdmin from "./components/Admin/FilmDetailsAdmin";
+import HomeConnexion from "./components/Utilisateur/HomeConnexion";
 import Logout from "./components/Logout";
 import Rent from "./components/Rent";
 import UserInf from './components/UserInf';
+import FilmDetailsConnect from "./components/Utilisateur/FilmDetailsConnect";
 
 
 
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/films/:id/edit" element={<FilmEdit films={films} />} />
                     <Route path="/films/add" element={<FilmAdd/>}/>
                     <Route path="/films/:id" element={<FilmDetails films={films} comments={{}}/>}/>
+                    <Route path="/filmsConnect/:id" element={<FilmDetailsConnect films={films} comments={{}}/>}/>
                     <Route path="/filmsAdmin/:id" element={<FilmDetailsAdmin films={films} comments={{}}/>}/>
                     <Route path="/User/:id" element={<UserInf/>}/>
                 </Routes>
