@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function getUserIdFromToken() {
@@ -100,31 +101,36 @@ const LoginForm = () => {
 };
 
     return (
-        <div className="form-container">
-            <h1>Connexion</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Nom d'utilisateur"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                />
-                <input
-                    type="password"
-                    placeholder="Mot de passe"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                <button type="submit">Se connecter</button>
-            
-                {loginStatus.message && (
-                    <div style={{ color: loginStatus.success ? 'green' : 'red' }}>
-                        {loginStatus.message}
-                    </div>
-                 )}
-            </form>
+        <div>
+            <div className="create-account-link">
+            <Link to="/"><button>Retour</button></Link>
+            </div>
+            <div className="form-container">
+                <h1>Connexion</h1>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Nom d'utilisateur"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Mot de passe"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Se connecter</button>
+                
+                    {loginStatus.message && (
+                        <div style={{ color: loginStatus.success ? 'green' : 'red' }}>
+                            {loginStatus.message}
+                        </div>
+                    )}
+                </form>
+            </div>
         </div>
     );
 };
