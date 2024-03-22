@@ -5,6 +5,8 @@ const axios = require('axios');
 const bcrypt = require('bcrypt');
 const pool = require('./database');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 
 
 const app = express();
@@ -16,6 +18,10 @@ app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:3000' // Autorise les requêtes cross-origin seulement pour ce domaine
 }));
+
+// Augmentez la limite de taille du corps de la requête
+app.use(bodyParser.json({ limit: '50mb' })); // Augmente la limite à 50MB
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 
 
 // Routes
@@ -46,23 +52,27 @@ app.post('/api/login', async (req, res) => {
   });
 
   app.post('/api/register', async (req, res) => {
-    const { username, password, email } = req.body;
+    const { username, password, email, imageData } = req.body;
+    console.log(req.body);
     if (!username || !password || !email) {
-      return res.status(400).json({ message: "Le nom d'utilisateur, le mot de passe et l'email sont requis" });
+      return res.status(401).json({ message: "Le nom d'utilisateur, le mot de passe et l'email sont requis" });
     }
     
     try {
       // Vérifier si l'utilisateur ou l'email existe déjà
       const userCheck = await pool.query('SELECT * FROM User WHERE username = ? OR email = ?', [username, email]);
       if (userCheck[0].length > 0) {
-        return res.status(400).json({ message: "L'utilisateur ou l'email existe déjà" });
+        return res.status(402).json({ message: "L'utilisateur ou l'email existe déjà" });
       }
   
       // Hacher le mot de passe
       const hashedPassword = await bcrypt.hash(password, 10);
       
       // Insérer l'utilisateur dans la base de données avec role 'u' et state 'a'
-      await pool.query('INSERT INTO User (username,  passwordHash, email, imageData, role, state) VALUES (?, ?, ?,"", "U", "A")', [username, hashedPassword, email]);
+      if(imageData == null){
+        await pool.query('INSERT INTO User (username,  passwordHash, email, imageData, role, state) VALUES (?, ?, ?, "", "U", "A")', [username, hashedPassword, email]);
+      }
+      await pool.query('INSERT INTO User (username,  passwordHash, email, imageData, role, state) VALUES (?, ?, ?, ?, "U", "A")', [username, hashedPassword, email, imageData]);
       res.status(201).json({ message: "Utilisateur créé avec succès" });
     } catch (error) {
       console.error(error);
