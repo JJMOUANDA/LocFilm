@@ -8,6 +8,8 @@ import FilmManagement from "./components/FilmManagement";
 import FilmEdit from "./components/FilmEdit";
 import {useState} from "react";
 import FilmDetails from "./components/FilmDetails";
+import FilmAdd from "./components/FilmAdd";
+import FilmDetailsAdmin from "./components/FilmDetailsAdmin";
 
 
 
@@ -25,7 +27,9 @@ function App() {
                     <Route path="/login" element={<LoginForm/>}/>
                     <Route path="/films" element={<FilmManagement films={films} setFilms={setFilms}/>}/>
                     <Route path="/films/:id/edit" element={<FilmEdit films={films} />} />
+                    <Route path="/films/add" element={<FilmAdd/>}/>
                     <Route path="/films/:id" element={<FilmDetails films={films} comments={{}}/>}/>
+                    <Route path="/filmsAdmin/:id" element={<FilmDetailsAdmin films={films} comments={{}}/>}/>
                 </Routes>
 
 

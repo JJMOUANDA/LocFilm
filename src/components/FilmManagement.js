@@ -80,7 +80,7 @@ const FilmManagement = ({ setFilms }) => {
                     <div key={film.id} className="film-card">
                         <img src={film.imageUrl} alt={film.name} className="film-image"/>
                         <div className="film-details">
-                            <Link to={`/films/${film.id}`}>
+                            <Link to={`/filmsAdmin/${film.id}`}>
                                 <h2>{film.name}</h2>
                             </Link>
                             <p>Prix: {film.price} €</p>
@@ -92,6 +92,11 @@ const FilmManagement = ({ setFilms }) => {
                     </div>
                 ))}
             </div>
+
+            <Link to="/films/add">
+                <button className="home-cta">Ajouter un film</button>
+            </Link>
+
             {editing && (
                 <FilmEdit
                     film={currentFilm}

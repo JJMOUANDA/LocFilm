@@ -12,12 +12,20 @@ const FilmDetails = () => {
         axios.get(`http://localhost:8080/location-film-api/films/${id}`)
             .then(response => {
                 setFilm(response.data);
-                setComments(response.data.comments);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        axios.get(`http://localhost:8080/location-film-api/comments/film/${id}`)
+            .then(response => {
+                setComments(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
     }, [id]);
+
 
     if (!film) {
         return <div>Film non trouvé</div>;
