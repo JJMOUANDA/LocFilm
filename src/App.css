@@ -313,3 +313,120 @@
     transform: rotate(360deg);
   }
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Pour un affichage plus compact et professionnel */
+  margin: 20px 0; /* Espacement autour du tableau */
+  font-size: 0.9em; /* Taille de police appropriée */
+  font-family: sans-serif; /* Police plus lisible */
+  min-width: 400px; /* Minimum largeur pour petits écrans */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); /* Ombre subtile pour la profondeur */
+}
+
+caption {
+  font-size: 1.5em; /* Taille du texte */
+  font-weight: bold; /* Texte en gras */
+  margin: 0.5em 0; /* Espace au-dessus et en dessous du titre */
+  text-align: center; /* Centre le texte */
+}
+
+thead {
+  background-color: red; /* Couleur d'arrière-plan pour les en-têtes */
+  color: #ffffff; /* Couleur du texte pour les en-têtes */
+}
+
+th, td {
+  padding: 12px 15px; /* Espacement intérieur pour le contenu des cellules */
+  border: 1px solid #dddddd; /* Bordures légères pour délimiter les cellules */
+  text-align: left; /* Alignement du texte */
+}
+
+tbody tr {
+  border-bottom: 1px solid #dddddd; /* Bordure en bas de chaque ligne pour les séparer visuellement */
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3; /* Couleur d'arrière-plan pour les lignes paires */
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid red; /* Bordure en bas de la dernière ligne pour la souligner */
+}
+
+tbody tr:hover {
+  background-color: #fddfdf; /* Couleur d'arrière-plan au survol pour améliorer l'interactivité */
+}
+
+
+
+.form-containers {
+  background-color: #fff;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.form-containers h2 {
+  text-align: center;
+  color: #333;
+}
+
+.form-groups {
+  margin-bottom: 20px;
+}
+
+.form-groups label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-groups input[type="text"],
+.form-groups input[type="password"],
+.form-groups input[type="email"],
+.form-groups input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-groups input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-groups input[type="submit"]:hover {
+  background-color: #004494;
+}
+
+/* Style pour l'ajout de photo */
+.photo-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.photo-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Légères modifications pour l'input file pour le rendre un peu plus intuitif */
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  margin-top: 5px;
+}
+
