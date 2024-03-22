@@ -7,7 +7,7 @@ const Logout = () => {
     const navigate = useNavigate(); // Utiliser useNavigate directement dans le corps du composant
   
     useEffect(() => {
-      localStorage.removeItem('userToken'); // Supprimer le token lors du montage du composant
+      localStorage.removeItem('Token'); // Supprimer le token lors du montage du composant
       navigate('/login'); // Rediriger l'utilisateur vers la page de connexion
     }, [navigate]); // Ajouter navigate comme dépendance pour s'assurer qu'il est prêt à l'emploi
   
