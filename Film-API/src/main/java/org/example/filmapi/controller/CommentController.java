@@ -1,4 +1,7 @@
 package org.example.filmapi.controller;
+
+import javax.transaction.Transactional;
+import org.example.filmapi.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +17,15 @@ import java.util.Optional;
 @RequestMapping("/location-film-api/comments")
 public class CommentController {
 
+  private final PhotoRepository photoRepository;
   @Autowired
   private CommentRepository commentRepository;
+
+  // Constructeur qui initialise photorepository
+
+  public CommentController(PhotoRepository photoRepository) {
+    this.photoRepository = photoRepository;
+  }
 
   @GetMapping
   public List<Comment> getAllComments() {
@@ -58,11 +68,14 @@ public class CommentController {
   }
 
   @DeleteMapping("/{id}")
+  @Transactional
   public ResponseEntity<?> deleteComment(@PathVariable Long id) {
     if (!commentRepository.existsById(id)) {
       return ResponseEntity.notFound().build();
     }
-    org.example.filmapi.repository.PhotoRepository.deleteByCommentId(id);
+    if(photoRepository.findPhotoByCommentId(id) != null) {
+      photoRepository.deleteByCommentId(id);
+    }
     commentRepository.deleteById(id);
     return ResponseEntity.noContent().build();
   }

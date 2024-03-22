@@ -11,4 +11,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long>{
 
   static void deleteByFilmId(Long filmId) {
   }
+
+
 }

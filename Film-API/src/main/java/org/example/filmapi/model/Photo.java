@@ -1,4 +1,7 @@
 package org.example.filmapi.model;
+
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,7 +17,9 @@ public class Photo {
 
   private Long filmId;
 
-  private Long CommentId;
+  @ManyToOne
+  @JoinColumn(name = "CommentId")
+  private Comment comment;
 
   private String imageData;
 }
