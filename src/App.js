@@ -15,6 +15,8 @@ import Logout from "./components/Logout";
 import Rent from "./components/Rent";
 import UserInf from './components/UserInf';
 import FilmDetailsConnect from "./components/Utilisateur/FilmDetailsConnect";
+import AddPhoto from "./components/AddPhoto";
+import UserList from "./components/Admin/UserList";
 
 
 
@@ -40,6 +42,8 @@ function App() {
                     <Route path="/filmsConnect/:id" element={<FilmDetailsConnect films={films} comments={{}}/>}/>
                     <Route path="/filmsAdmin/:id" element={<FilmDetailsAdmin films={films} comments={{}}/>}/>
                     <Route path="/User/:id" element={<UserInf/>}/>
+                    <Route path="/films/:idFilm/ajouter-photo" render={(props) => <AddPhoto {...props} filmId={props.match.params.idFilm} />} />
+                    <Route path="/Users" element={<UserList/>}/>
                 </Routes>
 
 

@@ -15,7 +15,7 @@ const AdminHeader = () => {
                         <Link to="/films">Films</Link>
                     </li>
                     <li>
-                        <Link to="/accounts">Comptes</Link>
+                        <Link to="/Users">Comptes</Link>
                     </li>
                     <li>
                         <Link to="/historique">Historique</Link>

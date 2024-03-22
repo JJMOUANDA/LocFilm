@@ -10,9 +10,15 @@ const FilmDetailsAdmin = () => {
     const [comments, setComments] = useState([]);
 
     const deleteComment = (id) => {
-        axios.delete(`http://localhost:8080/location-film-api/comments/${id}`)
+        axios.delete(`http://localhost:8080/location-film-api/comments/${id}/photos`)
             .then(() => {
-                setComments(comments.filter(comment => comment.id !== id));
+                axios.delete(`http://localhost:8080/location-film-api/comments/${id}`)
+                    .then(() => {
+                        setComments(comments.filter(comment => comment.id !== id));
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             })
             .catch(error => {
                 console.log(error);

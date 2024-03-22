@@ -11,16 +11,24 @@ const FilmList = () => {
     const userId = getUserIdFromToken();
 
     useEffect(() => {
-        axios.get('http://localhost:8080/location-film-api/films')
-            .then(response => {
-                setFilms(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        const fetchFilms = async () => {
+            const response = await axios.get('http://localhost:8080/location-film-api/films');
+            const filmsWithPhotos = [];
+
+            // Récupérer les photos de chaque film et les ajouter au tableau filmsWithPhotos
+            for (const film of response.data) {
+                const photosResponse = await axios.get(`http://localhost:8080/location-film-api/photos/film/${film.id}`);
+                film.photos = photosResponse.data;
+                filmsWithPhotos.push(film);
+            }
+
+            setFilms(filmsWithPhotos);
+        };
+
+        fetchFilms();
     }, []);
 
-    const handleFilmClick = (film) => {
+        const handleFilmClick = (film) => {
         setSelectedFilm(film); // Mettre à jour l'état avec le film sélectionné
     };
 
@@ -44,9 +52,11 @@ const FilmList = () => {
             <div className="film-gallery">
                 {films.map(film => (
                     <div key={film.id} className="film-card" onClick={() => handleFilmClick(film)}>
-                        <img src={film.imageUrl} alt={film.name} className="film-image"/>
+                        {film.photos && Array.isArray(film.photos) && film.photos.map((photo) => (
+                            <img key={photo.id} src={`data:image/jpeg;base64,${photo.imageData}`} alt={film.name} />
+                        ))}
                         <div className="film-details">
-                            <Link to={`/filmsConnect/${film.id}`}>
+                        <Link to={`/filmsConnect/${film.id}`}>
                                 <h2>{film.name}</h2>
                             </Link>
                             <p>Prix: {film.price} €</p>
