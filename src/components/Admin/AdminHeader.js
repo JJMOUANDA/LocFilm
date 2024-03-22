@@ -21,7 +21,9 @@ const AdminHeader = () => {
                         <Link to="/historique">Historique</Link>
                     </li>
                     <li>
-                        <button onClick={handleLogout}>Déconnexion</button>
+                    <Link to="/logout">
+                            <button>logout</button>
+                    </Link>
                     </li>
                 </ul>
             </nav>
